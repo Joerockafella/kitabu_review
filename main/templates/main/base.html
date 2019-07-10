@@ -1,0 +1,94 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% if title %}
+    <title>Kitabu - {{ title }}</title>
+    {% else %}
+    <title>Kitabu</title>
+    {% endif %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+        integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{% static 'main/main.css' %}">
+    <script src="#"></script>
+</head>
+
+<body>
+    <header class="site-header">
+        <nav class="navbar navbar-expand-md navbar-dark bg-secondary">
+            <div class="container-fluid">
+                <a class="navbar-brand mr-6 logo_link" href="{% url 'main-home' %}">Kitabu Review</a>
+                <div class="navbar-nav mr-auto">
+                    <a class="nav-item nav-link p-0" href="{% url 'main-home' %}"><i class="fa fa-home m-0 p-0"
+                            style="font-size:34px;"></i></a>
+                </div>
+
+                <!--Navbar Right Side-->
+                <div class="navbar-nav">
+                    <!--if current_user.is_authenticated-->
+                    <div class="img_dropdown nav-item">
+                        <!--img onclick="myFunction()" class="nav-item rounded-circle navbar-img" src="#" alt="image_now"-->
+                        <!--div id="myDropdown" class="dropdown-content">
+                            <div class="media m-2">
+                                <img class="rounded-circle navbar-img" src="#" alt="image">
+                                <div class="media-body pl-2 pb-0">
+                                    <h5 class="account-heading-drop mb-0">
+                                        #python current_user.username 
+                                    </h5>
+                                    <p class="account-email-drop">
+                                        #python current_user.email 
+                                    </p>
+                                </div>
+                            </div>
+                            <a href="#">Manage Account</a>
+                            <a class="logout-drop" href="#">Logout</a>
+                        </div>
+                    </div -->
+                        <!-- else -->
+                        <div>
+                            <a class="nav-item nav-link d-inline mr-2" href="#">Login</a>
+                            <a class="nav-item nav-link d-inline" href="#">Register</a>
+                        </div>
+
+                        <!-- endif -->
+                    </div>
+                </div>
+        </nav>
+    </header>
+    <main role="main" class="container">
+        <!-- with messages = get_flashed_messages(with_categories=true) -->
+        <!-- if messages -->
+        <!-- for category, message in messages -->
+        <!--div class="mx-auto col-sm-4 text-center alert alert- #python category ">
+            #python message 
+        </div -->
+        <!-- endfor -->
+        <!-- endif -->
+        <!-- endwith -->
+        <div class="row">
+            {% block content %} {% endblock content %}
+        </div>
+
+    </main>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+        integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
