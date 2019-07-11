@@ -1,5 +1,10 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from .models import Book
 
 def home(request):
-    return render(request, 'main/home.html', {'title': 'Home'})
+
+    context = {
+        'books': Book.objects.all()
+    }
+
+    return render(request, 'main/home.html', context, {'title': 'Home'})

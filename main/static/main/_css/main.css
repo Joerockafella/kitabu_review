@@ -1,0 +1,201 @@
+
+/*body {
+  color: #333333;
+  margin-top: 5rem;
+}*/
+
+h1, h2, h3, h4, h5, h6, p {
+  color: #444444;
+}
+.site-header .navbar-nav .nav-link {
+  color: #cbd5db;
+}
+
+.site-header .navbar-nav .nav-link:hover {
+  color: #ffffff;
+}
+
+.site-header .navbar-nav .nav-link.active {
+  font-weight: 500vw;
+}
+hr {
+  height: 8px;
+  border: 0;
+  box-shadow: 0 5px 5px -5px #8c8b8b inset;
+}
+
+.content-section {
+  padding: 10px 20px;
+  border: 1px solid #dddddd;
+  border-radius: 3px;
+  margin-bottom: 20px;
+}
+
+.content-section_2 {
+  padding: 10px 20px;
+  border-radius: 3px;
+  margin-bottom: 20px;
+}
+
+.checked {
+  color: orange;
+}
+
+.account-img {
+  height: 125px;
+  width: 125px;
+  margin-right: 20px;
+  margin-bottom: 16px;
+}
+
+a.article-title:hover {
+  color: #333;
+  text-decoration: none;
+}
+
+.article-img {
+  height: 55px;
+  width: 55px;
+  margin-right: 20px;
+  margin-bottom: 16px;
+}
+
+.article-content {
+  white-space: pre-line;
+}
+.article-metadata {
+  padding-bottom: 1px;
+  margin-bottom: 4px;
+  border-bottom: 1px solid #e3e3e3
+}
+
+.article-metadata a:hover {
+  color: #333;
+  text-decoration: none;
+}
+
+.article-svg {
+  width: 25px;
+  height: 25px;
+  vertical-align: middle;
+}  
+
+.navbar-img {
+  height: 40px;
+  width: 40px;
+  cursor: pointer;
+}
+
+.account-heading {
+  font-size: 2.5rem;
+}
+
+/* Manage account drop */
+.account-heading-drop {
+  font-size: 1.5rem;
+}
+
+.account-email-drop {
+  font-size: 0.7rem;
+}
+
+.img_dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown {
+  display: inline-block;
+}
+
+
+.dropdown-content {
+  display: none; 
+  right: 0;
+  position: absolute;
+  background-color: #ffffff;
+  min-width: 230px;
+  border: 3px solid #f1f1f1;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.logout-drop {
+  right: 0;
+  text-align: right;
+}
+
+.img_dropdown a:hover {color: #ddd;}
+
+.show {display: block;}
+
+
+/* Home book display */
+.card_img {
+  width: 200px;
+  height: 200px;
+}
+
+/* Media query */
+@media only screen and (max-width: 750px) {
+/* For mobile phones: */
+ .card_img {
+   width: 100%;
+}
+
+.home-responsive {
+  width: 100%;
+  padding: 0px;
+  margin: 0px;
+  display: flex;
+  flex-direction: row-reverse;
+  /*flex-wrap: wrap;*/
+}
+
+  .mob-responsive {
+  width: 50%;
+  flex-wrap: wrap;
+  background: none;
+
+}
+
+.kitabu-header h1 {
+  font-size: 8vw;
+}
+
+ .kitabu-header img {
+  width: 20%;
+  height: 20%;
+}
+
+  .logo_link {
+  font-size: 5vw;
+}
+
+.book_font {
+width: 100%;
+font-size: 3vw;
+}
+
+.book_img_div {
+width: 100%;
+}
+
+ .account-img {
+  height: 85px;
+  width: 85px;
+}
+
+  .account-heading {
+  font-size: 7vw;
+}
+
+
+}
