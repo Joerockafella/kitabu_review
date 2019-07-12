@@ -63,16 +63,15 @@
         </nav>
     </header>
     <main role="main" class="container">
-        <!-- with messages = get_flashed_messages(with_categories=true) -->
-        <!-- if messages -->
-        <!-- for category, message in messages -->
-        <!--div class="mx-auto col-sm-4 text-center alert alert- #python category ">
-            #python message 
-        </div -->
-        <!-- endfor -->
-        <!-- endif -->
-        <!-- endwith -->
-        <div>
+        <div class="mt-2">
+            {% if messages %}
+            {% for message in messages %}
+            <div class="mx-auto p-0 col-md-8 text-center alert alert-{{ message.tags }}">
+                {{ message }}
+            </div>
+            {% endfor %}
+            {% endif %}
+
             {% block content %} {% endblock content %}
         </div>
 
