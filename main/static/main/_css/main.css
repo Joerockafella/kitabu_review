@@ -142,6 +142,16 @@ a.article-title:hover {
   width: 200px;
   height: 200px;
 }
+/* Star rating card*/
+.rating-header {
+  margin-top: -10px;
+  margin-bottom: 10px;
+}
+
+
+
+
+
 
 /* Media query */
 @media only screen and (max-width: 750px) {

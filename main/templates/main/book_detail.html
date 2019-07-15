@@ -1,0 +1,83 @@
+{% extends "main/base.html" %}
+
+
+{% block content %}
+<div class="content-section_2 p-3 mx-auto col-sm-6">
+    <div>
+        <h3 class="card-title text-info text-center">{{ object.title }}</h3>
+    </div>
+    <div>
+        <div class="col-sm">
+            <div class="card">
+                <div class="card-header text-center p-1">
+                    <h5 class="text-info">Ratings and Reviews</h5>
+                </div>
+                <div class="card-body d-flex p-3">
+                    <div class="mr-4 book_img_div">
+                        <img class="img-thumbnail mr-4" src="http://covers.openlibrary.org/b/isbn/{{ book.isbn }}-M.jpg"
+                            alt="Book image">
+                    </div>
+                    <div class="book_font">
+                        <p class="card-text text-info">Author: {{object.author}}</p>
+                        <p class="card-text text-info">Year published: {{object.year}}</p>
+                        <p class="card-text text-info">ISBN: {{ object.isbn }}</p>
+
+                        <!--p class="card-text text-info">
+                            Goodreads ratings: {{ g_rating_counts }} |
+                            {{ g_ratings }} / 5 <span class="fa fa-star checked"></span>
+                        </p>
+                        <p class="card-text text-info">Kitabu ratings:
+                            <button class=" btn btn-light p-0 pl-1 pr-1 text-info">
+                                <small>
+                                    Not available now <span class="fa fa-star checked"></span>
+                                </small>
+                            </button>
+                        </p-->
+                        <div class="form-group" id="rating-ability-wrapper">
+                            <label class="control-label" for="rating">
+                                <input type="hidden" id="selected_rating" name="selected_rating" value=""
+                                    required="required">
+                            </label>
+                            <p class="bold rating-header">
+                                <small><span class="selected-rating">0</span> / 5</small>
+                            </p>
+                            <small class="text-info">Rate:</small>
+                            <button type="button" class="btnrating btn btn-default btn-sm" data-attr="1"
+                                id="rating-star-1">
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                            </button>
+                            <button type="button" class="btnrating btn btn-default btn-sm" data-attr="2"
+                                id="rating-star-2">
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                            </button>
+                            <button type="button" class="btnrating btn btn-default btn-sm" data-attr="3"
+                                id="rating-star-3">
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                            </button>
+                            <button type="button" class="btnrating btn btn-default btn-sm" data-attr="4"
+                                id="rating-star-4">
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                            </button>
+                            <button type="button" class="btnrating btn btn-default btn-sm" data-attr="5"
+                                id="rating-star-5">
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body p-3">
+
+                    <!--FORM HERE-->
+                </div>
+            </div>
+        </div>
+        <p class="text-info mb-0 mt-4 ">
+            All reviews ({{ review_count }})
+        </p>
+        <hr>
+        <div>
+            <p>{{ object.book_reviews }}</p>
+        </div>
+    </div>
+
+    {% endblock content %}

@@ -16,10 +16,10 @@
     {% for book in books %}
     <div class="d-flex flex-wrap mx-auto shadow mb-4 mob-responsive">
         <div class="p-2 m-2 img-thumbnail mob-img">
-            <a href="#">
+            <a href="{% url 'book-detail' book.id %}">
                 <img src="http://covers.openlibrary.org/b/isbn/{{ book.isbn }}-M.jpg" alt="Book image" class="card_img">
             </a>
-            <h6 class="text-info mt-2"><a href="#">{{book.title}}</a></h6>
+            <h6 class="text-info mt-2"><a href="{% url 'book-detail' book.id %}">{{book.title}}</a></h6>
             <small>
                 <p class="text-info mb-0">by {{book.author}}, {{book.year}}</p>
             </small>
