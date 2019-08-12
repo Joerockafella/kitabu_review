@@ -1,83 +1,69 @@
 {% extends "main/base.html" %}
+{% load crispy_forms_tags %}
 
 
 {% block content %}
-<div class="content-section_2 p-3 mx-auto col-sm-6">
+<div class="content-section_2 p-3 mx-auto col-md-6">
     <div>
         <h3 class="card-title text-info text-center">{{ object.title }}</h3>
     </div>
     <div>
-        <div class="col-sm">
-            <div class="card">
-                <div class="card-header text-center p-1">
-                    <h5 class="text-info">Ratings and Reviews</h5>
+        <div class="card">
+            <div class="card-header text-center p-1">
+                <h5 class="text-info">Ratings and Reviews</h5>
+            </div>
+            <div class="card-body d-flex p-3">
+                <div class="mr-4 book_img_div">
+                    <img class="img-thumbnail mr-4" src="http://covers.openlibrary.org/b/isbn/{{ book.isbn }}-M.jpg"
+                        alt="Book image">
                 </div>
-                <div class="card-body d-flex p-3">
-                    <div class="mr-4 book_img_div">
-                        <img class="img-thumbnail mr-4" src="http://covers.openlibrary.org/b/isbn/{{ book.isbn }}-M.jpg"
-                            alt="Book image">
-                    </div>
-                    <div class="book_font">
-                        <p class="card-text text-info">Author: {{object.author}}</p>
-                        <p class="card-text text-info">Year published: {{object.year}}</p>
-                        <p class="card-text text-info">ISBN: {{ object.isbn }}</p>
+                <div class="book_font">
+                    <p class="card-text text-info">Author: {{book.author}}</p>
+                    <p class="card-text text-info">Year published: {{book.year}}</p>
+                    <p class="card-text text-info">ISBN: {{ book.isbn }}</p>
 
-                        <!--p class="card-text text-info">
-                            Goodreads ratings: {{ g_rating_counts }} |
-                            {{ g_ratings }} / 5 <span class="fa fa-star checked"></span>
-                        </p>
-                        <p class="card-text text-info">Kitabu ratings:
-                            <button class=" btn btn-light p-0 pl-1 pr-1 text-info">
-                                <small>
-                                    Not available now <span class="fa fa-star checked"></span>
-                                </small>
-                            </button>
-                        </p-->
-                        <div class="form-group" id="rating-ability-wrapper">
-                            <label class="control-label" for="rating">
-                                <input type="hidden" id="selected_rating" name="selected_rating" value=""
-                                    required="required">
-                            </label>
-                            <p class="bold rating-header">
-                                <small><span class="selected-rating">0</span> / 5</small>
-                            </p>
-                            <small class="text-info">Rate:</small>
-                            <button type="button" class="btnrating btn btn-default btn-sm" data-attr="1"
-                                id="rating-star-1">
-                                <i class="fa fa-star" aria-hidden="true"></i>
-                            </button>
-                            <button type="button" class="btnrating btn btn-default btn-sm" data-attr="2"
-                                id="rating-star-2">
-                                <i class="fa fa-star" aria-hidden="true"></i>
-                            </button>
-                            <button type="button" class="btnrating btn btn-default btn-sm" data-attr="3"
-                                id="rating-star-3">
-                                <i class="fa fa-star" aria-hidden="true"></i>
-                            </button>
-                            <button type="button" class="btnrating btn btn-default btn-sm" data-attr="4"
-                                id="rating-star-4">
-                                <i class="fa fa-star" aria-hidden="true"></i>
-                            </button>
-                            <button type="button" class="btnrating btn btn-default btn-sm" data-attr="5"
-                                id="rating-star-5">
-                                <i class="fa fa-star" aria-hidden="true"></i>
-                            </button>
-                        </div>
+                    <h6 class="card-text text-info">
+                        Goodreads:
+                    </h6>
+                   
+                    <p class="card-text text-info mb-0 ml-4">
+                        <small>Ratings: {{ g_ratings }} / 5 <span class="fa fa-star checked"></span></small>
+                    </p>
+                    <p class="card-text text-info ml-4">
+                        <small>Total ratings: {{ g_rating_counts }}</small>
+                    </p>
+                </div>
+            </div>
+            <div class="card-body p-3">
+                <form method="POST">
+                    {% csrf_token %}
+                    <fieldset class="form-group">
+                        <legend class="border-bottom mb-4 text-info">Review this book</legend>
+                        {{ form|crispy }}
+                    </fieldset>
+                    <div class="form-group">
+                        <button class="btn btn-secondary" type="submit">Post</button>
                     </div>
-                </div>
-                <div class="card-body p-3">
-
-                    <!--FORM HERE-->
-                </div>
+                </form>
             </div>
         </div>
         <p class="text-info mb-0 mt-4 ">
-            All reviews ({{ review_count }})
+            All reviews ({{ comment_count }})
         </p>
         <hr>
-        <div>
-            <p>{{ object.book_reviews }}</p>
-        </div>
+        {% for comment in comments %}
+        <article class="media content-section">
+            <img class="rounded-circle article-img" src="{{ comment.author.profile.image.url }}">
+            <div class="media-body">
+                <div class="article-metadata">
+                    <a class="mr-2" href="#">{{ comment.author }}</a>
+                    <small class="text-muted">{{ comment.date_posted|date:"F d, Y" }}</small>
+                </div>
+                <h6><a class="article-title" href="{% url 'post-detail' comment.id %}">{{ comment.title }}</a></h6>
+                <p class="article-content">{{ comment.content }}</p>
+            </div>
+        </article>
+        {% endfor %}
     </div>
-
-    {% endblock content %}
+</div>
+{% endblock content %}

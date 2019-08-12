@@ -1,10 +1,15 @@
 #
 from django.urls import path
-from .views import BookListview, BookDetailview, PostCreateview
+from .views import BookListview, PostDetailView, PostUpdateView, PostDeleteView
 from . import views
+
 
 urlpatterns = [
     path('', BookListview.as_view(), name='main-home'),
-    path('book/<int:pk>/', BookDetailview.as_view(), name='book-detail'),
-    path('book/<int:pk>/new', PostCreateview.as_view(), name='post-create'),
+    path('book/<int:pk>/', views.book_detail, name='book-detail'),
+    #path('<int:pk>/', views.post_detail, name='post-detail'),
+    path('post/<int:pk>/', PostDetailView.as_view(), name='post-detail'),
+    path('post/<int:pk>/update/', PostUpdateView.as_view(), name='post-update'),
+    path('post/<int:pk>/delete/', PostDeleteView.as_view(), name='post-delete'),
+    path('api/<str:isbn>/', views.api),
 ]
