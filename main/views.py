@@ -27,7 +27,6 @@ class BookListview(ListView):
 def book_detail(request, pk):
     book = Book.objects.get(pk=pk)
     user = request.user
-    form = CommentForm()
     if request.method == "POST":
         form = CommentForm(request.POST)
         if form.is_valid():
@@ -39,6 +38,8 @@ def book_detail(request, pk):
                 
             )
             c_form.save()
+    # defining the form here again so it can clean the data after submit
+    form = CommentForm()
     comments = Post.objects.filter(book=book)
     comment_count = comments.count()
     goodreads = requests.get("https://www.goodreads.com/book/review_counts.json",
@@ -54,15 +55,6 @@ def book_detail(request, pk):
         "comment_count": comment_count
     }
     return render(request, "main/book_detail.html", context)
-
-#@login_required
-#def post_detail(request, pk):
-#    comment = Post.objects.get(pk=pk)
-#    context = {
-#        "comment": comment,
-#    }
-#
-#    return render(request, 'main/post_detail.html', context, {'title': 'Post detail'})
 
 class PostDetailView(LoginRequiredMixin, DetailView):
    model = Post
