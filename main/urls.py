@@ -1,11 +1,10 @@
 #
 from django.urls import path
-from .views import PostDetailView, PostUpdateView, PostDeleteView, BookListview
+from .views import PostDetailView, PostUpdateView, PostDeleteView, BookListview 
 from . import views
 
 
-urlpatterns = [
-    #path('', views.home, name='main-home'),    
+urlpatterns = [ 
     path('', BookListview.as_view(), name='main-home'),
     path('book/<int:pk>/', views.book_detail, name='book-detail'),
     path('post/<int:pk>/', PostDetailView.as_view(), name='post-detail'),

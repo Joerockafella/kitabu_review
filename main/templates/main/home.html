@@ -24,11 +24,20 @@
     <hr>
     <p class="text-info">This is a book review app. Sign up, so you can search for books, leave reviews, and see the
         reviews made by other people.</p>
+    <div class="col-md-4  mx-auto">
+        <form class="input-group form-inline mx-auto" action="" method="GET">
+            <input class="form-control" name="q" value="{{request.GET.q}}" type="text"
+                placeholder="Title/ Author / ISBN">
+            <span class="input-group-append">
+                <button class="btn btn-secondary" type="submit"><i class="fa fa-search"></i></button>
+            </span>
+        </form>
+    </div>
 </div>
 <div class="row mx-auto home-responsive infinite-container">
     {% for book in books %}
-    <div class="d-flex flex-wrap mx-auto shadow mb-4 mob-responsive infinite-item">
-        <div class="p-2 m-2 img-thumbnail mob-img">
+    <div class="d-flex flex-wrap mx-auto mb-4 mob-responsive infinite-item">
+        <div class="p-2 m-2 img-thumbnail mob-img shadow">
             <a href="{% url 'book-detail' book.id %}">
                 <img src="http://covers.openlibrary.org/b/isbn/{{ book.isbn }}-M.jpg" alt="Book image" class="card_img">
             </a>
@@ -46,6 +55,7 @@
 </div>
 
 {% if books.has_next %}
-<a class="infinite-more-link" href="?page={{ books.next_page_number }}">More</a>
+<a class="infinite-more-link"
+    href="?page={{ books.next_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">More</a>
 {% endif %}
 {% endblock content %}

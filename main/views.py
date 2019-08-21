@@ -1,21 +1,14 @@
 import requests, json
 from django.http import JsonResponse
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404, HttpResponse
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from .models import Book, Post
 from .forms import CommentForm, CommentUpdateForm
-
-#def home(request):
-#
-#    context = {
-#        'books': Book.objects.all()
-#    }
-#
-#    return render(request, 'main/home.html', context, {'title': 'Home'})
 
 
 class BookListview(ListView):
@@ -26,10 +19,18 @@ class BookListview(ListView):
     def get_context_data(self, **kwargs):
         context = super(BookListview, self).get_context_data(**kwargs)
         book_list = Book.objects.all()
-    
+
+        query = self.request.GET.get('q')
+        if query:
+            book_list = Book.objects.filter(
+            Q(title__icontains=query) | Q(author__icontains=query) | Q(isbn__icontains=query)
+            ).distinct()
+
+        #TODO: Display Error message when result is none and refresh the search
+
         page = self.request.GET.get('page', 1)
     
-        paginator = Paginator(book_list, 4)
+        paginator = Paginator(book_list, 8)
         try:
             books_view = paginator.page(page)
         except PageNotAnInteger:
@@ -37,7 +38,8 @@ class BookListview(ListView):
         except EmptyPage:
             books_view = paginator.page(paginator.num_pages)
         context['books'] = books_view
-        return context
+        return context 
+            
 
 @login_required
 def book_detail(request, pk):
