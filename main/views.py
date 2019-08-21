@@ -1,5 +1,6 @@
 import requests, json
 from django.http import JsonResponse
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
@@ -8,20 +9,35 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, D
 from .models import Book, Post
 from .forms import CommentForm, CommentUpdateForm
 
+#def home(request):
+#
+#    context = {
+#        'books': Book.objects.all()
+#    }
+#
+#    return render(request, 'main/home.html', context, {'title': 'Home'})
 
-
-def home(request):
-
-    context = {
-        'books': Book.objects.all()
-    }
-
-    return render(request, 'main/home.html', context, {'title': 'Home'})
 
 class BookListview(ListView):
     model = Book
     template_name = 'main/home.html'
     context_object_name = 'books'
+
+    def get_context_data(self, **kwargs):
+        context = super(BookListview, self).get_context_data(**kwargs)
+        book_list = Book.objects.all()
+    
+        page = self.request.GET.get('page', 1)
+    
+        paginator = Paginator(book_list, 4)
+        try:
+            books_view = paginator.page(page)
+        except PageNotAnInteger:
+            books_view = paginator.page(1)
+        except EmptyPage:
+            books_view = paginator.page(paginator.num_pages)
+        context['books'] = books_view
+        return context
 
 @login_required
 def book_detail(request, pk):
@@ -102,32 +118,3 @@ def api(request, isbn):
         "review_count": data['reviews_count'],
         "average_rating": data['average_rating']
     })    
-
-    #def get_queryset(self):
-    #    book_id = get_object_or_404(Book, id=self.kwargs.get('pk')) #getting the username from the url
-    #    print('book_id')
-    #    return Book.objects.filter(review=book_id).order_by('-date_posted')
-
-#class PostListview(LoginRequiredMixin, ListView):
-#    model = Post
-#    template_name = 'main/book_detail.html'
-#    context_object_name = 'posts'
-#    ordering = ['-date_posted']
-
-#def display_comment(request):
-#    #book = Book.objects.get(pk=pk)
-#    comments = Post.objects.all() #filter(book=book)
-#    context = {
-#        #"book": book,
-#        "comments": comments
-#    }
-#    return render(request, "main/book_detail.html", context)
-
-
-#class PostCreateview(LoginRequiredMixin, CreateView):
-#   model = Post
-#   fields = ['title', 'content']
-#
-#   def form_valid(self, form):
-#       form.instance.book = self.kwargs.get('pk')
-#       return super().form_valid(form)

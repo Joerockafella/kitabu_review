@@ -75,6 +75,11 @@
             {% endif %}
 
             {% block content %} {% endblock content %}
+
+            <script src="{% static 'main/_js/jquery-3.1.1.min.js' %}"></script>
+            <script src="{% static 'main/_js/jquery.waypoints.min.js' %}"></script>
+            <script src="{% static 'main/_js/infinite.min.js' %}"></script>
+            {% block javascript %}{% endblock %}
         </div>
 
     </main>

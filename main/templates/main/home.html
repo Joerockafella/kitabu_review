@@ -1,7 +1,20 @@
 {% extends "main/base.html" %}
 {% load static %}
 
+{% block javascript %}
+<script>
+    var infinite = new Waypoint.Infinite({
+        element: $('.infinite-container')[0],
+        onBeforePageLoad: function () {
+            $('.loading').show();
 
+        },
+        onAfterPageLoad: function ($items) {
+            $('.loading').hide();
+        }
+    });
+</script>
+{% endblock %}
 {% block content %}
 <div class="jumbotron bg-white text-white text-center pt-4 mb-0">
     <div class="m-auto kitabu-header">
@@ -12,9 +25,9 @@
     <p class="text-info">This is a book review app. Sign up, so you can search for books, leave reviews, and see the
         reviews made by other people.</p>
 </div>
-<div class="row mx-auto home-responsive">
+<div class="row mx-auto home-responsive infinite-container">
     {% for book in books %}
-    <div class="d-flex flex-wrap mx-auto shadow mb-4 mob-responsive">
+    <div class="d-flex flex-wrap mx-auto shadow mb-4 mob-responsive infinite-item">
         <div class="p-2 m-2 img-thumbnail mob-img">
             <a href="{% url 'book-detail' book.id %}">
                 <img src="http://covers.openlibrary.org/b/isbn/{{ book.isbn }}-M.jpg" alt="Book image" class="card_img">
@@ -27,4 +40,12 @@
     </div>
     {% endfor %}
 </div>
+
+<div class="loading text-center" style="display: none;">
+    <p class="text-info">Loading...</p>
+</div>
+
+{% if books.has_next %}
+<a class="infinite-more-link" href="?page={{ books.next_page_number }}">More</a>
+{% endif %}
 {% endblock content %}

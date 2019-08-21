@@ -57,10 +57,10 @@
             <div class="media-body">
                 <div class="article-metadata">
                     <a class="mr-2" href="#">{{ comment.author }}</a>
-                    <small class="text-muted">{{ comment.date_posted|date:"F d, Y" }}</small>
+                    <small class="text-muted">{{ comment.date_posted| timesince }} ago</small>
                 </div>
                 <h6><a class="article-title" href="{% url 'post-detail' comment.id %}">{{ comment.title }}</a></h6>
-                <p class="article-content">{{ comment.content }}</p>
+                <p class="article-content">{{ comment.content | truncatechars:100}}</p>
             </div>
         </article>
         {% endfor %}
