@@ -23,7 +23,7 @@
         </div>
     </div>
     <hr>
-    <p class="text-info">This is a book review app. Sign up, so you can search for books, leave reviews, and see the
+    <p class="text-dark">This is a book review app. Sign up, so you can search for books, leave reviews, and see the
         reviews made by other people.</p>
     <div class="col-md-4  mx-auto">
         <form class="input-group form-inline mx-auto" action="" method="GET">
@@ -42,9 +42,9 @@
             <a href="{% url 'book-detail' book.id %}">
                 <img src="http://covers.openlibrary.org/b/isbn/{{ book.isbn }}-M.jpg" alt="Book image" class="card_img">
             </a>
-            <h6 class="text-info mt-2"><a href="{% url 'book-detail' book.id %}">{{book.title}}</a></h6>
+            <h6 class="mt-2"><a href="{% url 'book-detail' book.id %}">{{book.title}}</a></h6>
             <small>
-                <p class="text-info mb-0">by {{book.author}}, {{book.year}}</p>
+                <p class="text-secondary mb-0">by {{book.author}}, {{book.year}}</p>
             </small>
         </div>
     </div>
