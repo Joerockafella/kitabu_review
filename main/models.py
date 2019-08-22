@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from django.urls import reverse
 
 
-#one to many relationship to be changed
+# one to many relationship to be changed
 
 class Book(models.Model):
     isbn = models.CharField(max_length=100)
@@ -28,7 +28,7 @@ class Post(models.Model):
         return self.title
 
     def get_absolute_url(self):
-        return reverse('book-detail', kwargs={'pk':self.pk} )
+        return reverse('book-detail', kwargs={'pk': self.pk})
 
     def get_absolute_url(self):
-        return reverse('post-detail', kwargs={'pk':self.pk} )
+        return reverse('post-detail', kwargs={'pk': self.pk})

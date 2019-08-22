@@ -1,14 +1,13 @@
 import requests, json
 from django.http import JsonResponse
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.shortcuts import render, redirect, get_object_or_404, HttpResponse
-from django.contrib import messages
+from django.shortcuts import render
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.views.generic import ListView, DetailView, UpdateView, DeleteView
 from .models import Book, Post
-from .forms import CommentForm, CommentUpdateForm
+from .forms import CommentForm
 
 
 class BookListview(ListView):
@@ -23,10 +22,10 @@ class BookListview(ListView):
         query = self.request.GET.get('q')
         if query:
             book_list = Book.objects.filter(
-            Q(title__icontains=query) | Q(author__icontains=query) | Q(isbn__icontains=query)
+                Q(title__icontains=query) | Q(author__icontains=query) | Q(isbn__icontains=query)
             ).distinct()
 
-        #TODO: Display Error message when result is none and refresh the search
+        # TODO: Display Error message when result is none and refresh the search
 
         page = self.request.GET.get('page', 1)
     
@@ -61,7 +60,7 @@ def book_detail(request, pk):
     comments = Post.objects.filter(book=book)
     comment_count = comments.count()
     goodreads = requests.get("https://www.goodreads.com/book/review_counts.json",
-                                 params={"key": "Pan0ciQ093frutnmdDvug", "isbns": book.isbn})
+                             params={"key": "Pan0ciQ093frutnmdDvug", "isbns": book.isbn})
     g_ratings = goodreads.json()["books"][0]["average_rating"]
     g_rating_counts = goodreads.json()["books"][0]["work_ratings_count"]
     context = {
@@ -74,16 +73,18 @@ def book_detail(request, pk):
     }
     return render(request, "main/book_detail.html", context)
 
+
 class PostDetailView(LoginRequiredMixin, DetailView):
-   model = Post
+    model = Post
+
 
 class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Post
     fields = ['title', 'content']
 
     def form_valid(self, form):
-       form.instance.user = self.kwargs.get('pk')
-       return super().form_valid(form)
+        form.instance.user = self.kwargs.get('pk')
+        return super().form_valid(form)
     
     def test_func(self):
         post = self.get_object()
@@ -91,19 +92,19 @@ class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
             return True
         return False
 
-class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
-   model = Post
-   success_url = '/'
 
-   def test_func(self):
+class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    model = Post
+    success_url = '/'
+
+    def test_func(self):
         post = self.get_object()
         if self.request.user == post.author:
             return True
         return False
 
 
-
-def api(request, isbn):
+def api(isbn):
     book_isbn = Book.objects.get(isbn=isbn)
 
     response = requests.get("https://www.goodreads.com/book/review_counts.json",

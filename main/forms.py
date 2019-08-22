@@ -3,7 +3,6 @@ from django.forms import Textarea
 from .models import Post
 
 
-
 class CommentForm(forms.ModelForm):
     class Meta:
         model = Post

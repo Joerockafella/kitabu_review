@@ -48,8 +48,8 @@ a.article-title:hover {
 }
 
 .article-img {
-  height: 55px;
-  width: 55px;
+  height: 50px;
+  width: 50px;
   margin-right: 20px;
   margin-bottom: 16px;
 }
@@ -142,7 +142,31 @@ a.article-title:hover {
   margin-bottom: 10px;
 }
 
+/* BEGIN TOAST */
+.toast {
+  --toast_background_color :#555555;
+  --toast_text_color : #FFFFFF;
 
+  position: fixed;
+  right: 50px;
+  bottom: 10%;
+  width: 160px;
+  background: var(--toast_background_color);
+  color: var(--toast_text_color);
+  padding: 10px;
+  border-radius: 5px;
+  transition: right 1s;
+}
+
+.toast.top {
+  top: 10%;
+  bottom: unset;
+}
+
+.toast.hidden {
+  right: -100%;
+}
+/* END TOAST */
 
 
 
@@ -175,11 +199,6 @@ a.article-title:hover {
   font-size: 8vw;
 }
 
- .kitabu-header img {
-  width: 20%;
-  height: 20%;
-}
-
   .logo_link {
   font-size: 5vw;
 }
@@ -202,5 +221,16 @@ width: 100%;
   font-size: 7vw;
 }
 
+.info {
+  margin: auto;
+  font-size: 3vw;
+  background-color: lightgreen;
+  width: 100px;
+  padding: 5px;
+}
+
+.info_box {
+  position: fixed;
+}
 
 }

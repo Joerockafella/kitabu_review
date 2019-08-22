@@ -1,5 +1,4 @@
 {% load static %}
-<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -24,8 +23,10 @@
 <body>
     <header class="site-header">
         <nav class="navbar navbar-expand-md navbar-dark bg-secondary">
-            <div class="container-fluid">
-                <a class="navbar-brand mr-6 logo_link" href="{% url 'main-home' %}">Kitabu Review</a>
+            <div class="container-fluid p-0">
+                <a class="navbar-brand mr-6 logo_link" href="{% url 'main-home' %}">
+                    <img src="{% static 'main/images/kr.png' %}" alt="logo" width="50" height="35">
+                </a>
                 <div class="navbar-nav mr-auto">
                     <a class="nav-item nav-link p-0" href="{% url 'main-home' %}"><i class="fa fa-home m-0 p-0"
                             style="font-size:34px;"></i></a>

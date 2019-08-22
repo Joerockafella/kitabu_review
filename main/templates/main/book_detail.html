@@ -42,7 +42,7 @@
                         {{ form|crispy }}
                     </fieldset>
                     <div class="form-group">
-                        <button class="btn btn-secondary" type="submit">Post</button>
+                        <button class="btn btn-secondary" type="submit">Send</button>
                     </div>
                 </form>
             </div>
@@ -56,7 +56,7 @@
             <img class="rounded-circle article-img" src="{{ comment.author.profile.image.url }}">
             <div class="media-body">
                 <div class="article-metadata">
-                    <a class="mr-2" href="#">{{ comment.author }}</a>
+                    <small class="mr-2 text-info">{{ comment.author }}</small>
                     <small class="text-muted">{{ comment.date_posted| timesince }} ago</small>
                 </div>
                 <h6><a class="article-title" href="{% url 'post-detail' comment.id %}">{{ comment.title }}</a></h6>
